@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* 🎨 VARIABLES POR DEFECTO (TEMA NORMAL / LIGHT) */
+:root {
+  --bg-app: #f9fafb; /* neutral-50 */
+  --bg-card: #ffffff;
+  --text-main: #171717; /* neutral-900 */
+  --text-muted: #737373; /* neutral-500 */
+  --brand-primary: #0a0a0a; /* neutral-950 */
+  --brand-hover: #262626; /* neutral-800 */
+  --border-color: #f5f5f5; /* neutral-100 */
+}
+
+/* 🌙 MODO OSCURO (DARK) */
+.dark {
+  --bg-app: #0a0a0a;
+  --bg-card: #171717;
+  --text-main: #f5f5f5;
+  --text-muted: #a3a3a3;
+  --brand-primary: #3b82f6; /* Azul vibrante para contraste */
+  --brand-hover: #2563eb;
+  --border-color: #262626;
+}
+
+/* 🌸 MODO ROSADO (PINK) */
+.pink {
+  --bg-app: #fff1f2; /* rose-50 */
+  --bg-card: #ffffff;
+  --text-main: #881337; /* rose-900 */
+  --text-muted: #be123c; /* rose-700 */
+  --brand-primary: #e11d48; /* rose-600 */
+  --brand-hover: #be123c;
+  --border-color: #ffe4e6; /* rose-100 */
+}
+
+/* Aplicación global de variables */
+html, body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* Utilidades para usar en tus componentes */
+.card-theme { background-color: var(--bg-card); border-color: var(--border-color); }
+.text-theme-main { color: var(--text-main); }
+.text-theme-muted { color: var(--text-muted); }
