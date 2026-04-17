@@ -1,38 +1,26 @@
-import { useState } from 'react';
-import type { Trabajo } from './types';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../db/supabase';
 import { TrabajosHeader } from './components/TrabajosHeader';
 import { TrabajosTable } from './components/TrabajosTable';
+import { TrabajosFormModal } from './components/TrabajosFormModal';
 
 export default function TrabajosSection() {
-  const [trabajos] = useState<Trabajo[]>([
-    {
-      id: '1',
-      cliente: 'Constructora Beta SAC',
-      tipo_trabajo: 'Movimiento de tierras',
-      maquina_codigo: 'EXC-001',
-      fecha_inicio: '2024-03-15',
-      fecha_fin: '2024-03-20',
-      horas_trabajadas: 40,
-      ingreso_generado: 3200.00,
-      estado: 'Completado'
-    },
-    {
-      id: '2',
-      cliente: 'Minera Los Andes',
-      tipo_trabajo: 'Carga de mineral',
-      maquina_codigo: 'CAR-002',
-      fecha_inicio: '2024-03-22',
-      fecha_fin: null,
-      horas_trabajadas: 15,
-      ingreso_generado: 1350.00,
-      estado: 'En Progreso'
-    }
-  ]);
+  const [trabajos, setTrabajos] = useState<any[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const fetchTrabajos = async () => {
+    const { data } = await supabase.from('trabajos').select('*, maquinas(codigo)').order('created_at', { ascending: false });
+    if (data) setTrabajos(data.map(t => ({ ...t, maquina_codigo: t.maquinas.codigo })));
+  };
+
+  useEffect(() => { fetchTrabajos(); }, []);
 
   return (
-    <div className="bg-white p-8 rounded-2xl border border-neutral-100 shadow-sm">
-      <TrabajosHeader />
+    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+      {/* ⚠️ Agrega onOpenModal a TrabajosHeader.tsx */}
+      <TrabajosHeader onOpenModal={() => setIsModalOpen(true)} />
       <TrabajosTable trabajos={trabajos} />
+      <TrabajosFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={() => { setIsModalOpen(false); fetchTrabajos(); }} />
     </div>
   );
 }

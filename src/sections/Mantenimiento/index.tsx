@@ -1,35 +1,41 @@
-import { useState } from 'react';
-import type { Mantenimiento } from './types';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../db/supabase';
 import { MantenimientoHeader } from './components/MantenimientoHeader';
 import { MantenimientoTable } from './components/MantenimientoTable';
+import { MantenimientoFormModal } from './components/MantenimientoFormModal';
 
 export default function MantenimientoSection() {
-  // TODO: Conectar con base de datos real
-  const [registros] = useState<Mantenimiento[]>([
-    {
-      id: '1',
-      maquina_codigo: 'EXC-001',
-      tipo: 'Preventivo',
-      fecha: '2024-03-10',
-      descripcion: 'Cambio de filtro de aceite y revisión de fluidos.',
-      costo: 350.00,
-      responsable: 'Carlos Mecánico'
-    },
-    {
-      id: '2',
-      maquina_codigo: 'CAR-002',
-      tipo: 'Correctivo',
-      fecha: '2024-03-15',
-      descripcion: 'Reemplazo de manguera hidráulica rota.',
-      costo: 890.50,
-      responsable: 'Taller Central'
+  const [registros, setRegistros] = useState<any[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const fetchRegistros = async () => {
+    // Usamos la relación para traer el código de la máquina en la misma consulta
+    const { data } = await supabase.from('mantenimientos').select(`
+      *,
+      maquinas ( codigo )
+    `).order('created_at', { ascending: false });
+    
+    if (data) {
+      // Mapeamos para que la tabla lo entienda igual que antes
+      const formateados = data.map(reg => ({
+        ...reg,
+        maquina_codigo: reg.maquinas.codigo
+      }));
+      setRegistros(formateados);
     }
-  ]);
+  };
+
+  useEffect(() => { fetchRegistros(); }, []);
 
   return (
-    <div className="bg-white p-8 rounded-2xl border border-neutral-100 shadow-sm">
-      <MantenimientoHeader />
+    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+      <MantenimientoHeader onOpenModal={() => setIsModalOpen(true)} />
       <MantenimientoTable registros={registros} />
+      <MantenimientoFormModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSuccess={() => { setIsModalOpen(false); fetchRegistros(); }} 
+      />
     </div>
   );
 }

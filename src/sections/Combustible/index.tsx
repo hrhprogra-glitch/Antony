@@ -1,32 +1,26 @@
-import { useState } from 'react';
-import type { RegistroCombustible } from './types';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../db/supabase';
 import { CombustibleHeader } from './components/CombustibleHeader';
 import { CombustibleTable } from './components/CombustibleTable';
+import { CombustibleFormModal } from './components/CombustibleFormModal';
 
 export default function CombustibleSection() {
-  const [registros] = useState<RegistroCombustible[]>([
-    {
-      id: '1',
-      maquina_codigo: 'EXC-001',
-      fecha: '2024-03-18',
-      galones: 50,
-      costo_total: 185.50,
-      responsable: 'Juan Pérez'
-    },
-    {
-      id: '2',
-      maquina_codigo: 'CAR-002',
-      fecha: '2024-03-19',
-      galones: 35,
-      costo_total: 129.85,
-      responsable: 'Miguel Gómez'
-    }
-  ]);
+  const [registros, setRegistros] = useState<any[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const fetchRegistros = async () => {
+    const { data } = await supabase.from('combustibles').select('*, maquinas(codigo)').order('created_at', { ascending: false });
+    if (data) setRegistros(data.map(reg => ({ ...reg, maquina_codigo: reg.maquinas.codigo })));
+  };
+
+  useEffect(() => { fetchRegistros(); }, []);
 
   return (
-    <div className="bg-white p-8 rounded-2xl border border-neutral-100 shadow-sm">
-      <CombustibleHeader />
+    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+      {/* ⚠️ Nota: Ve a CombustibleHeader.tsx y agrégale la propiedad onOpenModal */}
+      <CombustibleHeader onOpenModal={() => setIsModalOpen(true)} />
       <CombustibleTable registros={registros} />
+      <CombustibleFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={() => { setIsModalOpen(false); fetchRegistros(); }} />
     </div>
   );
 }
