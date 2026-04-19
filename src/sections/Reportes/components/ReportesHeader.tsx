@@ -7,7 +7,7 @@ export function ReportesHeader() {
         </h1>
         <p className="text-neutral-500 mt-1">Visión general del rendimiento y rentabilidad de la flota.</p>
       </div>
-      <button className="bg-neutral-950 hover:bg-neutral-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors duration-200 flex items-center gap-2">
+      <button className="bg-black hover:bg-neutral-800 text-white px-6 py-3 rounded-none text-[11px] font-bold uppercase tracking-widest transition-colors border-2 border-black active:scale-95 flex items-center gap-2">
         <span>📥</span> Exportar PDF
       </button>
     </div>

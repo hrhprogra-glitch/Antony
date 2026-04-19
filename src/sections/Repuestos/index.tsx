@@ -17,7 +17,7 @@ export default function RepuestosSection() {
   useEffect(() => { fetchRepuestos(); }, []);
 
   return (
-    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+    <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
       <RepuestosHeader onOpenModal={() => setIsModalOpen(true)} />
       <RepuestosTable repuestos={repuestos} />
       <RepuestosFormModal 

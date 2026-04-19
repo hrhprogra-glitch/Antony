@@ -18,7 +18,7 @@ export function ThemeSettings() {
   }, [theme]);
 
   return (
-    <div className="bg-(--bg-card) border-(--border-color) text-(--text-main) p-6 rounded-2xl border shadow-sm transition-colors duration-300">
+    <div className="bg-white p-8 rounded-none border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-colors duration-300">
       <h2 className="text-xl font-bold text-neutral-900 dark:text-white mb-4">Apariencia del Sistema</h2>
       <p className="text-sm text-neutral-500 dark:text-slate-400 mb-6">
         Selecciona la combinación de colores que prefieras para trabajar.

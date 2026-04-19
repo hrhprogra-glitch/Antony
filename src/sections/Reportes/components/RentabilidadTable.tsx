@@ -6,7 +6,7 @@ interface Props {
 
 export function RentabilidadTable({ datos }: Props) {
   return (
-    <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-none border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
       <div className="p-6 border-b border-neutral-100 bg-slate-50/50">
         <h3 className="font-bold text-lg text-neutral-900">Rentabilidad por Equipo</h3>
       </div>

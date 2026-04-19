@@ -19,18 +19,18 @@ export default function ConfiguracionSection() {
       <ThemeSettings />
 
       {/* Cascarón para la futura gestión de usuarios */}
-      <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-neutral-100 dark:border-slate-700 shadow-sm transition-colors">
+      <div className="bg-white p-8 rounded-none border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-colors">
         <div className="flex justify-between items-center mb-6">
           <div>
             <h2 className="text-xl font-bold text-neutral-900 dark:text-white">Gestión de Usuarios</h2>
             <p className="text-sm text-neutral-500 dark:text-slate-400">Controla quién tiene acceso al sistema.</p>
           </div>
-          <button className="bg-neutral-950 dark:bg-blue-600 hover:bg-neutral-800 dark:hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+          <button className="bg-black hover:bg-neutral-800 text-white px-6 py-3 rounded-none text-[11px] font-bold uppercase tracking-widest transition-colors border-2 border-black active:scale-95">
             + Nuevo Usuario
           </button>
         </div>
         
-        <div className="p-8 text-center border-2 border-dashed border-neutral-200 dark:border-slate-700 rounded-xl">
+        <div className="p-8 text-center border-2 border-dashed border-neutral-400 rounded-none bg-neutral-50">
           <p className="text-neutral-500 dark:text-slate-400">
             Módulo de usuarios listo para ser conectado a la Base de Datos.
           </p>

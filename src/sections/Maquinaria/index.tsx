@@ -26,7 +26,7 @@ export default function MaquinariaSection() {
   useEffect(() => { fetchMaquinas(); }, []);
 
   return (
-    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+    <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
       <MaquinariaHeader onOpenModal={() => setIsModalOpen(true)} />
       
       {loading ? (

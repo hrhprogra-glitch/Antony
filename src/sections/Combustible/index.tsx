@@ -16,7 +16,7 @@ export default function CombustibleSection() {
   useEffect(() => { fetchRegistros(); }, []);
 
   return (
-    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+    <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
       {/* ⚠️ Nota: Ve a CombustibleHeader.tsx y agrégale la propiedad onOpenModal */}
       <CombustibleHeader onOpenModal={() => setIsModalOpen(true)} />
       <CombustibleTable registros={registros} />

@@ -5,7 +5,7 @@ export function RepuestosHeader({ onOpenModal }: { onOpenModal: () => void }) {
         <h1 className="text-3xl font-extrabold tracking-tight text-(--text-main)">Inventario de Repuestos</h1>
         <p className="text-(--text-muted) mt-1">Controla el stock y evita la escasez de piezas clave.</p>
       </div>
-      <button onClick={onOpenModal} className="bg-neutral-950 dark:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:opacity-80">
+      <button onClick={onOpenModal} className="bg-black hover:bg-neutral-800 text-white px-6 py-3 rounded-none text-[11px] font-bold uppercase tracking-widest transition-colors border-2 border-black active:scale-95">
         + Nuevo Repuesto
       </button>
     </div>

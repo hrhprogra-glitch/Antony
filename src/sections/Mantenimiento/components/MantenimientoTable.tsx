@@ -9,14 +9,14 @@ export function MantenimientoTable({ registros }: Props) {
     <div className="overflow-x-auto">
       <table className="w-full text-left">
         <thead>
-          <tr className="text-neutral-500 border-b border-neutral-100 text-xs uppercase tracking-wider">
-            <th className="px-4 py-4 font-medium">Fecha</th>
-            <th className="px-4 py-4 font-medium">Máquina</th>
-            <th className="px-4 py-4 font-medium">Tipo</th>
-            <th className="px-4 py-4 font-medium">Descripción</th>
-            <th className="px-4 py-4 font-medium text-right">Costo</th>
-          </tr>
-        </thead>
+  <tr className="border-b-2 border-black">
+    <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Fecha</th>
+    <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Máquina</th>
+    <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Tipo</th>
+    <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Descripción</th>
+    <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-right">Costo</th>
+  </tr>
+</thead>
         <tbody className="divide-y divide-neutral-100 text-sm">
           {registros.map((registro) => (
             <tr key={registro.id} className="hover:bg-neutral-50/50 transition-colors">

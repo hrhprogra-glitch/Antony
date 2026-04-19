@@ -16,7 +16,7 @@ export default function TrabajosSection() {
   useEffect(() => { fetchTrabajos(); }, []);
 
   return (
-    <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+    <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
       {/* ⚠️ Agrega onOpenModal a TrabajosHeader.tsx */}
       <TrabajosHeader onOpenModal={() => setIsModalOpen(true)} />
       <TrabajosTable trabajos={trabajos} />

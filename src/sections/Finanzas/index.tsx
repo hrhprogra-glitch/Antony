@@ -30,7 +30,7 @@ export default function FinanzasSection() {
         </div>
       </div>
 
-      <div className="bg-(--bg-card) p-8 rounded-2xl border border-(--border-color) shadow-sm">
+      <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
         <FinanzasHeader onOpenModal={(tipo) => { setTipoModal(tipo); setIsModalOpen(true); }} />
         <FinanzasTable transacciones={transacciones} />
         <FinanzasFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={() => { setIsModalOpen(false); fetchTransacciones(); }} tipoDefault={tipoModal} />

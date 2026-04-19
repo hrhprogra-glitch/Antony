@@ -8,32 +8,35 @@ interface Props {
 export function MaquinariaTable({ maquinas }: Props) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left">
+      {/* Eliminamos bordes externos y fondos raros */}
+      <table className="w-full text-left border-collapse">
+        
+        {/* Encabezado: Fondo blanco, línea inferior negra gruesa para marcar autoridad */}
         <thead>
-          <tr className="text-neutral-500 border-b border-neutral-100 text-xs uppercase tracking-wider">
-            <th className="px-4 py-4 font-medium">Código</th>
-            <th className="px-4 py-4 font-medium">Tipo</th>
-            <th className="px-4 py-4 font-medium">Equipo</th>
-            <th className="px-4 py-4 font-medium">Estado</th>
-            <th className="px-4 py-4 font-medium text-right">Horas</th>
+          <tr className="border-b-2 border-black">
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Código</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Tipo</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Equipo</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Estado</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-right">Horas</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-100 text-sm">
+        
+        {/* Cuerpo: Solo líneas divisorias horizontales muy suaves */}
+        <tbody className="divide-y divide-(--border-color)">
           {maquinas.map((maquina) => (
-            <tr key={maquina.id} className="hover:bg-neutral-50/50 transition-colors">
-              <td className="px-4 py-5 font-semibold text-neutral-950">{maquina.codigo}</td>
-              <td className="px-4 py-5 text-neutral-600">{maquina.tipo}</td>
-              <td className="px-4 py-5 text-neutral-600">{maquina.marca} {maquina.modelo}</td>
+            <tr key={maquina.id} className="hover:bg-neutral-50 transition-colors group">
+              {/* Quitamos los border-r. Todo limpio. */}
+              <td className="px-4 py-5 font-bold text-black">{maquina.codigo}</td>
+              <td className="px-4 py-5 font-medium text-neutral-600">{maquina.tipo}</td>
+              <td className="px-4 py-5 font-medium text-neutral-600">{maquina.marca} {maquina.modelo}</td>
               <td className="px-4 py-5">
-                <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${
-                  maquina.estado === 'operativa' ? 'bg-emerald-50 text-emerald-800' :
-                  maquina.estado === 'mantenimiento' ? 'bg-amber-50 text-amber-800' :
-                  'bg-red-50 text-red-800'
-                }`}>
-                  {maquina.estado.charAt(0).toUpperCase() + maquina.estado.slice(1)}
+                {/* Badges minimalistas: Texto negro, borde gris suave */}
+                <span className="px-2 py-1 text-xs font-bold border border-neutral-200 text-black uppercase tracking-wider">
+                  {maquina.estado}
                 </span>
               </td>
-              <td className="px-4 py-5 text-right text-neutral-600 font-mono tabular-nums">
+              <td className="px-4 py-5 text-right font-mono font-bold text-black">
                 {maquina.horas_uso.toLocaleString()} h
               </td>
             </tr>

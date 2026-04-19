@@ -23,7 +23,7 @@ export function FinanzasFormModal({ isOpen, onClose, onSuccess, tipoDefault }: a
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-(--bg-card) border border-(--border-color) w-full max-w-md rounded-2xl shadow-2xl flex flex-col">
+      <div className="bg-(--bg-card) border-2 border-black w-full max-w-md rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col">
         <div className="flex justify-between items-center p-6 border-b border-(--border-color)">
           <h2 className="text-xl font-bold text-(--text-main)">Nueva Transacción ({formData.tipo})</h2>
           <button onClick={onClose} className="text-(--text-muted) hover:text-red-500">✖</button>
@@ -49,9 +49,9 @@ export function FinanzasFormModal({ isOpen, onClose, onSuccess, tipoDefault }: a
               <option value="Otros">Otros</option>
             </select>
 
-            <button type="submit" disabled={loading} className={`w-full text-white font-bold py-3 rounded-xl ${formData.tipo === 'Ingreso' ? 'bg-emerald-600' : 'bg-red-600'}`}>
-              Guardar Transacción
-            </button>
+            <button type="submit" disabled={loading} className={`w-full text-white font-bold py-3 px-4 rounded-none text-[11px] uppercase tracking-widest transition-colors border-2 border-black active:scale-95 ${formData.tipo === 'Ingreso' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-red-500 hover:bg-red-600'}`}>
+            Guardar Transacción
+          </button>
           </form>
         </div>
       </div>

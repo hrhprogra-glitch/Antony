@@ -1,29 +1,29 @@
+/* src/index.css */
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* 🎨 VARIABLES POR DEFECTO (TEMA NORMAL / LIGHT) */
 :root {
-  --bg-app: #f9fafb; /* neutral-50 */
-  --bg-card: #ffffff;
-  --text-main: #171717; /* neutral-900 */
-  --text-muted: #737373; /* neutral-500 */
-  --brand-primary: #0a0a0a; /* neutral-950 */
-  --brand-hover: #262626; /* neutral-800 */
-  --border-color: #f5f5f5; /* neutral-100 */
+  --bg-app: #f9fafb;     /* Gris súper claro, casi blanco */
+  --bg-card: #ffffff;    /* Blanco puro para los contenedores */
+  --text-main: #000000;  /* Negro puro: Máxima jerarquía */
+  --text-muted: #6b7280; /* Gris medio (slate-500) para texto secundario */
+  --brand-primary: #000000; /* Botones y acciones principales en negro */
+  --brand-hover: #374151;   /* Hover de botones en gris muy oscuro */
+  --border-color: #e5e7eb;  /* Gris muy sutil para divisiones, nada intrusivo */
 }
 
-/* 🌙 MODO OSCURO (DARK) */
+/* Modo oscuro adaptado a la misma filosofía (Negro/Gris/Blanco) */
 .dark {
-  --bg-app: #0a0a0a;
-  --bg-card: #171717;
-  --text-main: #f5f5f5;
-  --text-muted: #a3a3a3;
-  --brand-primary: #3b82f6; /* Azul vibrante para contraste */
-  --brand-hover: #2563eb;
-  --border-color: #262626;
+  --bg-app: #000000;
+  --bg-card: #0a0a0a;
+  --text-main: #ffffff;
+  --text-muted: #a1a1aa;
+  --brand-primary: #ffffff;
+  --brand-hover: #e4e4e7;
+  --border-color: #27272a;
 }
 
 /* 🌸 MODO ROSADO (PINK) */
@@ -50,3 +50,46 @@ html, body {
 .card-theme { background-color: var(--bg-card); border-color: var(--border-color); }
 .text-theme-main { color: var(--text-main); }
 .text-theme-muted { color: var(--text-muted); }
+
+/* =========================================================
+   SCROLLBAR ULTRA-MINIMALISTA (CASI INVISIBLE)
+   ========================================================= */
+
+/* 1. Estandarización para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+/* 2. Webkit (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 2px;  /* 🔹 Reducido a 2px: Literalmente un hilo vertical */
+  height: 2px; /* 🔹 Reducido a 2px: Hilo horizontal */
+}
+
+/* El fondo por donde corre el scroll */
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* La barra deslizable en sí */
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border-color); /* Gris muy sutil */
+  border-radius: 0px; /* Sin curvas */
+}
+
+/* Cuando el usuario le pasa el mouse por encima o interactúa */
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--text-muted); /* Gris oscuro para dar feedback */
+}
+/* =========================================================
+   OCULTAR SCROLLBAR COMPLETO (Para Sidebars o Menús)
+   ========================================================= */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Oculta en Chrome, Safari y Opera */
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Oculta en IE y Edge */
+  scrollbar-width: none;  /* Oculta en Firefox */
+}

@@ -7,42 +7,30 @@ interface Props {
 export function RepuestosTable({ repuestos }: Props) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left">
+      <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="text-neutral-500 border-b border-neutral-100 text-xs uppercase tracking-wider">
-            <th className="px-4 py-4 font-medium">Código</th>
-            <th className="px-4 py-4 font-medium">Nombre</th>
-            <th className="px-4 py-4 font-medium">Categoría</th>
-            <th className="px-4 py-4 font-medium text-right">Precio</th>
-            <th className="px-4 py-4 font-medium text-center">Stock</th>
+          <tr className="border-b-2 border-black">
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Código</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Nombre</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Categoría</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-right">Precio</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-center">Stock</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-100 text-sm">
-          {repuestos.map((repuesto) => {
-            const stockBajo = repuesto.stock <= repuesto.stock_minimo;
-            
-            return (
-              <tr key={repuesto.id} className="hover:bg-neutral-50/50 transition-colors">
-                <td className="px-4 py-5 font-semibold text-neutral-950">{repuesto.codigo}</td>
-                <td className="px-4 py-5 font-medium text-neutral-800">{repuesto.nombre}</td>
-                <td className="px-4 py-5 text-neutral-600">
-                  <span className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-xs font-medium">
-                    {repuesto.categoria}
-                  </span>
-                </td>
-                <td className="px-4 py-5 text-right text-neutral-600 font-mono tabular-nums">
-                  ${repuesto.precio.toFixed(2)}
-                </td>
-                <td className="px-4 py-5 text-center">
-                  <span className={`font-mono font-bold px-3 py-1 rounded-full text-xs ${
-                    stockBajo ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
-                  }`}>
-                    {repuesto.stock} {stockBajo && '⚠️'}
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
+        <tbody className="divide-y divide-(--border-color)">
+          {repuestos.map((r) => (
+            <tr key={r.id} className="hover:bg-neutral-50 transition-colors">
+              <td className="px-4 py-5 font-bold text-black">{r.codigo}</td>
+              <td className="px-4 py-5 font-medium text-neutral-600">{r.nombre}</td>
+              <td className="px-4 py-5">
+                <span className="px-2 py-1 text-[10px] font-bold border border-neutral-200 text-neutral-500 uppercase">{r.categoria}</span>
+              </td>
+              <td className="px-4 py-5 text-right font-mono font-bold text-black">${r.precio.toFixed(2)}</td>
+              <td className="px-4 py-5 text-center">
+                <span className={`font-bold ${r.stock <= r.stock_minimo ? 'text-red-600' : 'text-black'}`}>{r.stock}</span>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

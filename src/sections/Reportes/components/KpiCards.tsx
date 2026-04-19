@@ -12,7 +12,7 @@ export function KpiCards({ ingresos, gastos, maquinasActivas, alertasStock }: Pr
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {/* Tarjeta Ganancia */}
-      <div className="bg-white p-6 rounded-2xl border border-neutral-100 shadow-sm">
+      <div className="bg-white p-6 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
         <p className="text-sm font-medium text-neutral-500">Ganancia Neta</p>
         <p className={`text-3xl font-extrabold mt-2 ${gananciaNeta >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
           ${gananciaNeta.toLocaleString('en-US', { minimumFractionDigits: 2 })}

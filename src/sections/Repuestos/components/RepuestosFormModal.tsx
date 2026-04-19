@@ -36,7 +36,7 @@ export function RepuestosFormModal({ isOpen, onClose, onSuccess }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm transition-opacity">
-      <div className="bg-(--bg-card) border border-(--border-color) w-full max-w-md rounded-2xl shadow-2xl flex flex-col max-h-[90vh]">
+      <div className="bg-(--bg-card) border-2 border-black w-full max-w-md rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col max-h-[90vh]">
         <div className="flex justify-between items-center p-6 border-b border-(--border-color)">
           <h2 className="text-xl font-bold text-(--text-main)">Nuevo Repuesto</h2>
           <button onClick={onClose} className="text-(--text-muted) hover:text-red-500">✖</button>
@@ -81,7 +81,7 @@ export function RepuestosFormModal({ isOpen, onClose, onSuccess }: Props) {
               </div>
             </div>
 
-            <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl mt-4">
+            <button type="submit" disabled={loading} className="w-full bg-black hover:bg-neutral-800 text-white font-bold py-3 px-4 rounded-none text-[11px] uppercase tracking-widest transition-colors active:scale-95 mt-4">
               {loading ? 'Guardando...' : 'Registrar Repuesto'}
             </button>
           </form>

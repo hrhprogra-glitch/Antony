@@ -21,45 +21,46 @@ import ConfiguracionSection from './sections/Configuracion';
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [isInitializing, setIsInitializing] = useState(true);
+  // Nuevo estado para controlar el Sidebar en móviles
+  // Nuevo estado inteligente: Inicia abierto solo en pantallas grandes (>= 768px)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
-    // 1. Al cargar la app, verificamos si ya hay una sesión guardada en el navegador
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setIsInitializing(false);
     });
 
-    // 2. Nos suscribimos a cualquier cambio (login o logout)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  // Pantalla de carga mientras Supabase verifica el token
   if (isInitializing) {
     return (
       <div className="h-screen w-full flex items-center justify-center bg-(--bg-app) text-(--text-main)">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
       </div>
     );
   }
 
-  // 🛑 GUARDIA DE SEGURIDAD: Si no hay sesión activa, expulsar al Login
   if (!session) {
     return <Login />;
   }
 
-  // ✅ ACCESO CONCEDIDO: Mostrar el sistema
   return (
     <BrowserRouter>
       <div className="flex h-screen w-full bg-(--bg-app) text-(--text-main) font-sans overflow-hidden transition-colors duration-300">
-        <Sidebar />
+        
+        {/* Le pasamos el estado y la función para cerrar al Sidebar */}
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+        
         <div className="flex flex-col flex-1 w-full h-full relative">
-          <Topbar />
+          {/* Le pasamos la función para abrir/cerrar al Topbar */}
+          <Topbar onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+          
           <main className="flex-1 p-6 overflow-y-auto w-full">
             <Routes>
               <Route path="/" element={<Navigate to="/maquinaria" replace />} />

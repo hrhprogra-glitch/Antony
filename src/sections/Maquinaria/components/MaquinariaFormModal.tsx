@@ -22,7 +22,7 @@ export function MaquinariaFormModal({ isOpen, onClose, onSuccess }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-(--bg-card) border border-(--border-color) w-full max-w-md rounded-2xl shadow-2xl flex flex-col">
+      <div className="bg-(--bg-card) border-2 border-black w-full max-w-md rounded-none shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col">
         <div className="flex justify-between items-center p-6 border-b border-(--border-color)">
           <h2 className="text-xl font-bold text-(--text-main)">Registrar Nueva Máquina</h2>
           <button onClick={onClose} className="text-(--text-muted) hover:text-red-500">✖</button>
@@ -53,7 +53,7 @@ export function MaquinariaFormModal({ isOpen, onClose, onSuccess }: Props) {
 
             <input required type="number" placeholder="Horas de uso" className="w-full px-4 py-2 border rounded-lg bg-(--bg-app)" value={formData.horas_uso} onChange={e => setFormData({...formData, horas_uso: Number(e.target.value)})} />
 
-            <button type="submit" disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl">
+            <button type="submit" disabled={loading} className="w-full bg-black hover:bg-neutral-800 text-white font-bold py-3 px-4 rounded-none text-[11px] uppercase tracking-widest transition-colors active:scale-95">
               {loading ? 'Guardando...' : 'Registrar Máquina'}
             </button>
           </form>
