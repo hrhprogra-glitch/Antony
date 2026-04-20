@@ -26,41 +26,45 @@ export default function Login() {
 
   return (
     <div className="flex h-screen w-full bg-(--bg-app) items-center justify-center p-4 transition-colors duration-300">
-      <div className="w-full max-w-md bg-(--bg-card) border border-(--border-color) rounded-2xl shadow-xl p-8 transition-colors duration-300">
+      <div className="w-full max-w-md bg-(--bg-card) border-2 border-black rounded-none shadow-none p-8 transition-colors duration-300">
         
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-(--brand-primary) text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg">
+          {/* Logo Cuadrado y Plano */}
+          <div className="w-16 h-16 bg-black text-white border-2 border-black rounded-none flex items-center justify-center mx-auto mb-4 text-3xl shadow-none">
             🚜
           </div>
-          <h1 className="text-3xl font-extrabold text-(--text-main) tracking-tight mb-2">
+          <h1 className="text-3xl font-black text-(--text-main) tracking-tighter mb-2 uppercase">
             HeavyTrack
           </h1>
-          <p className="text-(--text-muted)">Inicia sesión para acceder al sistema</p>
+          <p className="text-[11px] text-neutral-500 font-bold uppercase tracking-widest">
+            Inicia sesión para acceder al sistema
+          </p>
         </div>
 
-        {/* Alerta de Error */}
+        {/* Alerta de Error con estilo técnico */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm font-medium text-center">
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-600 text-red-700 rounded-none text-[11px] font-bold uppercase tracking-widest text-center">
             {error}
           </div>
         )}
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-(--text-main) mb-2">
+            <label className="block text-[11px] font-bold text-(--text-main) uppercase tracking-widest mb-2">
               Correo Electrónico
             </label>
+            {/* Inputs planos y limpios */}
             <input 
               type="email" 
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-(--border-color) bg-(--bg-app) text-(--text-main) focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="w-full px-4 py-3 rounded-none border-2 border-black bg-(--bg-app) text-(--text-main) focus:bg-white outline-none transition-colors"
               placeholder="admin@heavytrack.com"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-(--text-main) mb-2">
+            <label className="block text-[11px] font-bold text-(--text-main) uppercase tracking-widest mb-2">
               Contraseña
             </label>
             <input 
@@ -68,17 +72,18 @@ export default function Login() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-(--border-color) bg-(--bg-app) text-(--text-main) focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+              className="w-full px-4 py-3 rounded-none border-2 border-black bg-(--bg-app) text-(--text-main) focus:bg-white outline-none transition-colors"
               placeholder="••••••••"
             />
           </div>
           
+          {/* Botón de acción principal */}
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors disabled:opacity-70 mt-4"
+            className="w-full py-4 px-4 bg-black hover:bg-neutral-800 text-white font-bold rounded-none border-2 border-black text-[11px] uppercase tracking-widest transition-colors disabled:opacity-70 active:scale-95 mt-6"
           >
-            {loading ? 'Verificando credenciales...' : 'Ingresar al Sistema'}
+            {loading ? 'Verificando...' : 'Ingresar al Sistema'}
           </button>
         </form>
         

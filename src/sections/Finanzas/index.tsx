@@ -22,14 +22,15 @@ export default function FinanzasSection() {
     <div className="space-y-6">
       {/* Resumen de Balance */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-(--bg-card) p-6 rounded-2xl border border-(--border-color) shadow-sm transition-colors">
-          <p className="text-sm text-(--text-muted) font-medium">Balance Total</p>
-          <p className={`text-3xl font-bold mt-2 ${balance >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+        <div className="bg-(--bg-card) p-6 rounded-none border-2 border-black shadow-none transition-colors">
+          <p className="text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Balance Total</p>
+          <p className={`text-4xl font-black mt-2 tracking-tight ${balance >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
             ${balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
           </p>
         </div>
       </div>
 
+      {/* Contenedor Principal */}
       <div className="bg-(--bg-card) p-8 rounded-none border-2 border-black shadow-none">
         <FinanzasHeader onOpenModal={(tipo) => { setTipoModal(tipo); setIsModalOpen(true); }} />
         <FinanzasTable transacciones={transacciones} />
