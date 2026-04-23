@@ -2,9 +2,11 @@ import type { Repuesto } from '../types';
 
 interface Props {
   repuestos: Repuesto[];
+  onEdit: (repuesto: Repuesto) => void;
+  onDelete: (id: string) => void;
 }
 
-export function RepuestosTable({ repuestos }: Props) {
+export function RepuestosTable({ repuestos, onEdit, onDelete }: Props) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
@@ -15,6 +17,7 @@ export function RepuestosTable({ repuestos }: Props) {
             <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest">Categoría</th>
             <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-right">Precio</th>
             <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-center">Stock</th>
+            <th className="px-4 py-4 text-[11px] text-neutral-500 font-bold uppercase tracking-widest text-right">Acciones</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-(--border-color)">
@@ -28,6 +31,14 @@ export function RepuestosTable({ repuestos }: Props) {
               <td className="px-4 py-5 text-right font-mono font-bold text-black">${r.precio.toFixed(2)}</td>
               <td className="px-4 py-5 text-center">
                 <span className={`font-bold ${r.stock <= r.stock_minimo ? 'text-red-600' : 'text-black'}`}>{r.stock}</span>
+              </td>
+              <td className="px-4 py-5 text-right space-x-4">
+                <button onClick={() => onEdit(r)} className="text-[11px] font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest transition-colors">
+                  Editar
+                </button>
+                <button onClick={() => onDelete(r.id)} className="text-[11px] font-bold text-red-600 hover:text-red-800 uppercase tracking-widest transition-colors">
+                  Borrar
+                </button>
               </td>
             </tr>
           ))}

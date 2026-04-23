@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 type ThemeType = 'light' | 'dark' | 'pink';
 
 export function ThemeSettings() {
-  const [theme, setTheme] = useState<ThemeType>('light');
+  // 🔥 SOLUCIÓN: Leemos de la memoria del navegador al iniciar
+  const [theme, setTheme] = useState<ThemeType>(() => {
+    return (localStorage.getItem('app_theme') as ThemeType) || 'light';
+  });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -11,6 +14,8 @@ export function ThemeSettings() {
     if (theme !== 'light') {
       root.classList.add(theme);
     }
+    // 🔥 SOLUCIÓN: Guardamos la preferencia del usuario
+    localStorage.setItem('app_theme', theme);
   }, [theme]);
 
   return (
@@ -21,43 +26,14 @@ export function ThemeSettings() {
       </p>
       
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {/* Normal */}
-        <button 
-          onClick={() => setTheme('light')}
-          className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${
-            theme === 'light' 
-              ? 'bg-neutral-950 text-white shadow-none' 
-              : 'bg-white text-black hover:bg-neutral-100 shadow-none'
-          }`}
-        >
-          <span className="text-2xl">☀️</span> 
-          <span className="font-black uppercase tracking-widest text-[11px]">Normal</span>
+        <button onClick={() => setTheme('light')} className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${ theme === 'light' ? 'bg-neutral-950 text-white shadow-none' : 'bg-white text-black hover:bg-neutral-100 shadow-none' }`}>
+          <span className="text-2xl">☀️</span> <span className="font-black uppercase tracking-widest text-[11px]">Normal</span>
         </button>
-
-        {/* Oscuro */}
-        <button 
-          onClick={() => setTheme('dark')}
-          className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${
-            theme === 'dark' 
-              ? 'bg-blue-600 text-white shadow-none' 
-              : 'bg-neutral-800 text-white hover:bg-neutral-700 shadow-none'
-          }`}
-        >
-          <span className="text-2xl">🌙</span>
-          <span className="font-black uppercase tracking-widest text-[11px]">Oscuro</span>
+        <button onClick={() => setTheme('dark')} className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${ theme === 'dark' ? 'bg-blue-600 text-white shadow-none' : 'bg-neutral-800 text-white hover:bg-neutral-700 shadow-none' }`}>
+          <span className="text-2xl">🌙</span> <span className="font-black uppercase tracking-widest text-[11px]">Oscuro</span>
         </button>
-
-        {/* Rosado */}
-        <button 
-          onClick={() => setTheme('pink')}
-          className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${
-            theme === 'pink' 
-              ? 'bg-rose-500 text-white shadow-none' 
-              : 'bg-rose-100 text-rose-900 hover:bg-rose-200 shadow-none'
-          }`}
-        >
-          <span className="text-2xl">🌸</span>
-          <span className="font-black uppercase tracking-widest text-[11px]">Rosado</span>
+        <button onClick={() => setTheme('pink')} className={`py-4 px-6 rounded-none border-2 border-black transition-all flex flex-col items-center gap-2 ${ theme === 'pink' ? 'bg-rose-500 text-white shadow-none' : 'bg-rose-100 text-rose-900 hover:bg-rose-200 shadow-none' }`}>
+          <span className="text-2xl">🌸</span> <span className="font-black uppercase tracking-widest text-[11px]">Rosado</span>
         </button>
       </div>
     </div>

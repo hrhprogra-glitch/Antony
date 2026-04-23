@@ -1,20 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../../../db/supabase';
 
-interface Props { isOpen: boolean; onClose: () => void; onSuccess: () => void; }
+interface Props { isOpen: boolean; onClose: () => void; onSuccess: () => void; maquinaEdit?: any; }
 
-export function MaquinariaFormModal({ isOpen, onClose, onSuccess }: Props) {
+export function MaquinariaFormModal({ isOpen, onClose, onSuccess, maquinaEdit }: Props) {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    codigo: '', tipo: 'Excavadora', marca: '', modelo: '', estado: 'operativa', horas_uso: 0,
+  // Cambiamos horas_uso a string vacío en lugar de 0
+  const [formData, setFormData] = useState<any>({
+    codigo: '', tipo: 'Excavadora', marca: '', modelo: '', estado: 'operativa', horas_uso: '',
   });
+
+  useEffect(() => {
+    if (maquinaEdit) {
+      setFormData(maquinaEdit);
+    } else {
+      setFormData({ codigo: '', tipo: 'Excavadora', marca: '', modelo: '', estado: 'operativa', horas_uso: '' });
+    }
+  }, [maquinaEdit, isOpen]);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.from('maquinas').insert([formData]);
+    
+    let error;
+    if (maquinaEdit) {
+      const { error: updateError } = await supabase.from('maquinas').update({
+        codigo: formData.codigo, tipo: formData.tipo, marca: formData.marca, 
+        modelo: formData.modelo, estado: formData.estado, horas_uso: formData.horas_uso
+      }).eq('id', maquinaEdit.id);
+      error = updateError;
+    } else {
+      const { error: insertError } = await supabase.from('maquinas').insert([formData]);
+      error = insertError;
+    }
+
     setLoading(false);
     if (error) alert('Error: ' + error.message);
     else onSuccess();
@@ -24,7 +45,9 @@ export function MaquinariaFormModal({ isOpen, onClose, onSuccess }: Props) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
       <div className="bg-(--bg-card) border-2 border-black w-full max-w-md rounded-none shadow-none flex flex-col">
         <div className="flex justify-between items-center p-6 border-b border-(--border-color)">
-          <h2 className="text-xl font-bold text-(--text-main)">Registrar Nueva Máquina</h2>
+          <h2 className="text-xl font-bold text-(--text-main)">
+            {maquinaEdit ? 'Editar Máquina' : 'Registrar Nueva Máquina'}
+          </h2>
           <button onClick={onClose} className="text-(--text-muted) hover:text-red-500">✖</button>
         </div>
         <div className="p-6">
@@ -51,10 +74,18 @@ export function MaquinariaFormModal({ isOpen, onClose, onSuccess }: Props) {
               <input required type="text" placeholder="Modelo" className="w-full px-4 py-2 border rounded-lg bg-(--bg-app)" value={formData.modelo} onChange={e => setFormData({...formData, modelo: e.target.value})} />
             </div>
 
-            <input required type="number" placeholder="Horas de uso" className="w-full px-4 py-2 border rounded-lg bg-(--bg-app)" value={formData.horas_uso} onChange={e => setFormData({...formData, horas_uso: Number(e.target.value)})} />
+            {/* Solución al problema del 0 molesto */}
+            <input 
+              required 
+              type="number" 
+              placeholder="Horas de uso" 
+              className="w-full px-4 py-2 border rounded-lg bg-(--bg-app)" 
+              value={formData.horas_uso} 
+              onChange={e => setFormData({...formData, horas_uso: e.target.value === '' ? '' : Number(e.target.value)})} 
+            />
 
             <button type="submit" disabled={loading} className="w-full bg-black hover:bg-neutral-800 text-white font-bold py-3 px-4 rounded-none text-[11px] uppercase tracking-widest transition-colors active:scale-95">
-              {loading ? 'Guardando...' : 'Registrar Máquina'}
+              {loading ? 'Guardando...' : (maquinaEdit ? 'Actualizar Máquina' : 'Registrar Máquina')}
             </button>
           </form>
         </div>
